@@ -1,0 +1,242 @@
+[
+  {
+    "nome": "Moda sustentável",
+    "descricao": "Conjunto de práticas que reduzem o impacto ambiental da indústria da moda, desde a escolha das fibras até o descarte e reaproveitamento das peças.",
+    "data_criacao": "Anos 2000",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Moda_sustent%C3%A1vel",
+    "tags": [
+      "sustentabilidade",
+      "meio ambiente",
+      "consumo consciente",
+      "indústria têxtil"
+    ]
+  },
+  {
+    "nome": "Denim e Jeanswear",
+    "descricao": "Tecido de algodão resistente, geralmente tingido com índigo, usado na produção de calças, jaquetas e peças casuais. É um dos pilares da moda mundial.",
+    "data_criacao": "Século XIX",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Denim",
+    "tags": [
+      "denim",
+      "jeans",
+      "lavanderia",
+      "casual"
+    ]
+  },
+  {
+    "nome": "Malharia circular",
+    "descricao": "Processo de fabricação de tecidos de malha em máquinas circulares, muito utilizado em camisetas, moletons e moda fitness pela elasticidade e conforto.",
+    "data_criacao": "Século XX",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Malha_(t%C3%AAxtil)",
+    "tags": [
+      "malha",
+      "tricô industrial",
+      "camisetas",
+      "conforto"
+    ]
+  },
+  {
+    "nome": "Tecidos planos",
+    "descricao": "Tecidos produzidos em tear plano, como sarja, tricoline e linho. São muito usados em camisas, alfaiataria e peças estruturadas.",
+    "data_criacao": "Indústria têxtil moderna",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Tecido_plano",
+    "tags": [
+      "tecelagem",
+      "sarja",
+      "tricoline",
+      "alfaiataria"
+    ]
+  },
+  {
+    "nome": "Estamparia digital",
+    "descricao": "Tecnologia que permite aplicar desenhos diretamente no tecido através de impressoras têxteis, reduzindo desperdício e facilitando coleções personalizadas.",
+    "data_criacao": "Anos 1990",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Estamparia",
+    "tags": [
+      "estampa",
+      "tecnologia",
+      "personalização",
+      "design têxtil"
+    ]
+  },
+  {
+    "nome": "Lavanderia de denim",
+    "descricao": "Etapa da produção de jeans em que são feitos processos como stone wash, destroyed, puídos e amaciamento para dar aspecto final à peça.",
+    "data_criacao": "Anos 1970",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Denim#Lavagens",
+    "tags": [
+      "jeans",
+      "lavagem",
+      "acabamento",
+      "processos úmidos"
+    ]
+  },
+  {
+    "nome": "Ficha técnica de produto",
+    "descricao": "Documento que reúne todas as informações da peça: tecidos, aviamentos, medidas, sequência operacional, consumo e observações para produção.",
+    "data_criacao": "Rotina de confecção",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Ficha_t%C3%A9cnica",
+    "tags": [
+      "engenharia de produto",
+      "confecção",
+      "processos",
+      "produção"
+    ]
+  },
+  {
+    "nome": "Modelagem e pilotagem",
+    "descricao": "Etapas em que o molde da peça é desenvolvido, ajustado no corpo e aprovado. Garantem caimento, conforto e vestibilidade corretos.",
+    "data_criacao": "Costura industrial",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Modelagem_(vestu%C3%A1rio)",
+    "tags": [
+      "modelagem",
+      "piloto",
+      "caimento",
+      "vestimenta"
+    ]
+  },
+  {
+    "nome": "Fast fashion",
+    "descricao": "Modelo de negócios baseado em coleções rápidas, grande volume e preços baixos, que exige cadeias produtivas ágeis, mas gera debates sobre impacto social e ambiental.",
+    "data_criacao": "Anos 1990",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Fast_fashion",
+    "tags": [
+      "negócios",
+      "tendências",
+      "produção em massa",
+      "varejo"
+    ]
+  },
+  {
+    "nome": "Slow fashion",
+    "descricao": "Movimento que valoriza qualidade, durabilidade e transparência na cadeia produtiva, como resposta ao fast fashion.",
+    "data_criacao": "Anos 2000",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Slow_fashion",
+    "tags": [
+      "sustentabilidade",
+      "consumo consciente",
+      "qualidade",
+      "ética"
+    ]
+  },
+  {
+    "nome": "Upcycling",
+    "descricao": "Processo criativo de transformar peças, resíduos ou sobras de tecido em novos produtos de maior valor agregado, reduzindo descarte.",
+    "data_criacao": "Design sustentável",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Upcycling",
+    "tags": [
+      "reaproveitamento",
+      "customização",
+      "sustentabilidade",
+      "criatividade"
+    ]
+  },
+  {
+    "nome": "Algodão orgânico",
+    "descricao": "Fibra de algodão cultivada sem agrotóxicos e com manejo mais sustentável do solo, muito usada em coleções ecológicas.",
+    "data_criacao": "Anos 1990",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Algod%C3%A3o_organico",
+    "tags": [
+      "fibra natural",
+      "sustentabilidade",
+      "matéria-prima",
+      "agricultura"
+    ]
+  },
+  {
+    "nome": "Poliéster reciclado",
+    "descricao": "Fibra sintética produzida a partir da reciclagem de garrafas PET e resíduos plásticos, reduzindo a necessidade de petróleo virgem.",
+    "data_criacao": "Anos 1990",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Poli%C3%A9ster",
+    "tags": [
+      "reciclagem",
+      "fibra sintética",
+      "sustentabilidade",
+      "matéria-prima"
+    ]
+  },
+  {
+    "nome": "Coleção cápsula",
+    "descricao": "Seleção enxuta de peças que se combinam entre si, criada para contar uma história específica ou parceria especial de marca.",
+    "data_criacao": "Marketing de moda",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Cole%C3%A7%C3%A3o_c%C3%A1psula",
+    "tags": [
+      "coleção",
+      "storytelling",
+      "branding",
+      "estratégia"
+    ]
+  },
+  {
+    "nome": "Tabela de medidas e grade",
+    "descricao": "Padrão de tamanhos utilizado pela marca (PP, P, M, G, etc.), definindo medidas de busto, cintura, quadril e comprimento para cada numeração.",
+    "data_criacao": "Padronização de vestuário",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Tamanho_de_roupa",
+    "tags": [
+      "medidas",
+      "padronização",
+      "grade",
+      "engenharia de produto"
+    ]
+  },
+  {
+    "nome": "Engenharia de processos na confecção",
+    "descricao": "Área responsável por definir tempos padrão, balanceamento, layout e fluxo de produção para garantir eficiência e custo competitivo.",
+    "data_criacao": "Indústria de confecção",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Engenharia_de_produtos_e_processos",
+    "tags": [
+      "processos",
+      "tempo padrão",
+      "produção",
+      "eficiência"
+    ]
+  },
+  {
+    "nome": "Logística na cadeia têxtil",
+    "descricao": "Gestão do fluxo de materiais desde o fio até a entrega da peça pronta nas lojas, incluindo lead time, estoque e transporte.",
+    "data_criacao": "Supply chain",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Log%C3%ADstica",
+    "tags": [
+      "supply chain",
+      "estoque",
+      "distribuição",
+      "planejamento"
+    ]
+  },
+  {
+    "nome": "Tendências de moda",
+    "descricao": "Estudos que antecipam cores, formas, tecidos e comportamentos de consumo, servindo de base para o desenvolvimento de coleções.",
+    "data_criacao": "Pesquisa de moda",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Moda",
+    "tags": [
+      "tendências",
+      "pesquisa",
+      "coleção",
+      "design"
+    ]
+  },
+  {
+    "nome": "Confecção 4.0",
+    "descricao": "Aplicação de automação, dados e tecnologia (como RFID, corte automático e sistemas integrados) na indústria de moda para ganhar eficiência.",
+    "data_criacao": "Indústria 4.0",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Ind%C3%BAstria_4.0",
+    "tags": [
+      "tecnologia",
+      "automação",
+      "dados",
+      "indústria têxtil"
+    ]
+  },
+  {
+    "nome": "Private label",
+    "descricao": "Modelo em que a confecção produz coleções completas para outras marcas ou varejistas, seguindo a identidade do cliente.",
+    "data_criacao": "Varejo de moda",
+    "link_oficial": "https://pt.wikipedia.org/wiki/Marca_pr%C3%B3pria",
+    "tags": [
+      "negócios",
+      "parcerias",
+      "produção",
+      "varejo"
+    ]
+  }
+]

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Moda & Indústria Têxtil – Base de Conhecimento</title>
+</head>
+<body>
+    <div class="bg-overlay"></div>
+
+    <header>
+        <div class="logo-titulo">
+            <div class="logo-icon" aria-hidden="true">MT</div>
+            <div>
+                <h1>Moda & Indústria Têxtil</h1>
+                <p class="subtitulo">
+                    Base de conhecimento focada em processos, materiais e tendências do ramo têxtil.
+                </p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button
+                id="btn-sobre"
+                class="btn-sobre"
+                type="button"
+                aria-label="Abrir informações sobre o projeto"
+            >
+                Sobre o projeto
+            </button>
+
+            <div class="busca-wrapper">
+                <input
+                    type="text"
+                    id="campo-busca"
+                    placeholder="Digite um tema: jeans, malha, ficha técnica, sustentabilidade..."
+                    aria-label="Buscar temas na base de moda e indústria têxtil"
+                >
+                <button
+                    id="botao-busca"
+                    onclick="iniciarBusca()"
+                    type="button"
+                >
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Contexto pessoal / história -->
+        <section class="intro">
+            <p>
+                Esta base de conhecimento foi criada para organizar conceitos importantes da
+                <strong>indústria da moda e da confecção</strong>. A ideia é ajudar equipes de
+                desenvolvimento, engenharia de processos e produção a entender melhor temas como
+                <em>denim, malharia, ficha técnica, sustentabilidade e Confecção 4.0</em>.
+            </p>
+            <p>
+                O conteúdo reflete o dia a dia de quem trabalha dentro de uma empresa de moda,
+                lidando com coleções, prazos, custos e qualidade – tudo em um só lugar, pesquisável.
+            </p>
+            <p class="intro-dica">
+                Dica: combine termos na busca, como <strong>“jeans sustentável”</strong> ou
+                <strong>“malharia esportiva”</strong>, para explorar melhor a base.
+            </p>
+        </section>
+
+        <!-- Cards resumo / mini dashboard -->
+        <section class="resumo" aria-label="Resumo dos temas filtrados">
+            <div id="stats-container" class="stats-container">
+                <!-- preenchido via JS -->
+            </div>
+        </section>
+
+        <!-- Filtros, favoritos e ordenação -->
+        <section class="filtros" aria-label="Filtros e opções de visualização">
+            <div class="filtros-superior">
+                <p id="info-resultados" class="info-resultados">
+                    Carregando temas sobre moda e indústria têxtil...
+                </p>
+
+                <div class="filtros-superior-actions">
+                    <div class="ordenacao-wrapper">
+                        <label for="select-ordenacao" class="ordenacao-label">Ordenar por:</label>
+                        <select id="select-ordenacao" class="ordenacao-select">
+                            <option value="az">Nome (A–Z)</option>
+                            <option value="ano">Ano / referência</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-imprimir" class="btn-imprimir" type="button">
+                        🖨 Versão para impressão
+                    </button>
+
+                    <button id="btn-limpar" class="btn-limpar" type="button">
+                        Limpar filtros
+                    </button>
+
+                    <button id="btn-favoritos" class="btn-favoritos" type="button">
+                        ⭐ Ver só favoritos (0)
+                    </button>
+                </div>
+            </div>
+
+            <div class="filtros-inferior">
+                <div class="categorias-container" id="categorias-container">
+                    <!-- chips de categoria via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sugestões de pesquisa -->
+        <section class="sugestoes" aria-label="Sugestões de pesquisa">
+            <p class="sugestoes-titulo">Sugestões de pesquisa rápidas:</p>
+            <div class="sugestoes-botoes">
+                <button type="button" class="sugestao-btn" data-termo="jeans">jeans</button>
+                <button type="button" class="sugestao-btn" data-termo="malha">malha</button>
+                <button type="button" class="sugestao-btn" data-termo="ficha técnica">ficha técnica</button>
+                <button type="button" class="sugestao-btn" data-termo="sustentabilidade">sustentabilidade</button>
+                <button type="button" class="sugestao-btn" data-termo="confecção 4.0">confecção 4.0</button>
+            </div>
+        </section>
+
+        <!-- Lista de cards -->
+        <section class="card-container" aria-label="Lista de temas">
+            <!-- os cards são inseridos via JavaScript -->
+        </section>
+    </main>
+
+    <footer class="footer">
+        <ul class="footer-links">
+            <li>
+                <a href="https://www.fiap.com.br/" target="_blank" rel="noopener noreferrer">FIAP</a>
+            </li>
+            <li>
+                <a href="https://www.alura.com.br/" target="_blank" rel="noopener noreferrer">Alura</a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </li>
+        </ul>
+    </footer>
+
+    <!-- Botão voltar ao topo -->
+    <button
+        id="btn-topo"
+        class="btn-topo"
+        type="button"
+        aria-label="Voltar ao topo da página"
+    >
+        ↑
+    </button>
+
+    <!-- Modal Sobre o projeto -->
+    <div id="modal-sobre" class="modal" aria-hidden="true">
+        <div class="modal-backdrop" data-fechar-modal></div>
+        <div
+            class="modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-sobre-titulo"
+        >
+            <div class="modal-header">
+                <h2 id="modal-sobre-titulo">Sobre este projeto</h2>
+                <button
+                    id="modal-sobre-fechar"
+                    class="modal-fechar"
+                    type="button"
+                    aria-label="Fechar janela Sobre o projeto"
+                >
+                    ✕
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Este projeto foi desenvolvido como uma base de conhecimento focada em
+                    <strong>moda e indústria têxtil</strong>, integrando conceitos de materiais,
+                    processos, sustentabilidade, negócios e tecnologia.
+                </p>
+                <p>
+                    A proposta é simular um portal interno que poderia ser usado por equipes de
+                    desenvolvimento de produto, engenharia de processos e produção para consultar
+                    rapidamente termos importantes do dia a dia.
+                </p>
+                <p>
+                    A aplicação foi construída com <strong>HTML, CSS, JavaScript e JSON</strong>,
+                    usando recursos como busca inteligente, filtros por categoria, favoritos com
+                    armazenamento local e uma visão resumida dos temas filtrados.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
