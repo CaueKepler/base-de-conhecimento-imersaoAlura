@@ -12,19 +12,22 @@ let btnSobre = document.querySelector("#btn-sobre");
 let modalSobre = document.querySelector("#modal-sobre");
 let btnModalFechar = document.querySelector("#modal-sobre-fechar");
 let btnLimpar = document.querySelector("#btn-limpar");
+let btnTema = document.querySelector("#btn-tema");
 
 let dados = [];
 
-// Estado global da interface
+// =================== ESTADO GLOBAL ===================
+
 const estado = {
     termoBusca: "",
     categoriaSelecionada: "todas",
     mostrarFavoritos: false,
     favoritos: new Set(),
-    ordenacao: "az" // 'az' ou 'ano'
+    ordenacao: "az"
 };
 
-// Configuração de categorias (para filtros e resumo)
+// =================== CATEGORIAS ===================
+
 const categoriasConfig = [
     {
         id: "sustentabilidade",
@@ -105,7 +108,7 @@ const categoriasConfig = [
     }
 ];
 
-// Mapeia nome do tema -> caminho da imagem (você coloca os arquivos na pasta img/)
+// Mapa nome -> imagem
 const imagensPorTema = {
     "Moda sustentável": "img/moda-sustentavel.jpeg",
     "Denim e Jeanswear": "img/denim.jpeg",
@@ -129,7 +132,60 @@ const imagensPorTema = {
     "Private label": "img/private-label.jpeg"
 };
 
-// Normaliza texto (minúsculo + sem acento) para busca
+// =================== TEMA (LIGHT / DARK) ===================
+
+function aplicarTema(tema) {
+    const body = document.body;
+    body.setAttribute("data-theme", tema === "dark" ? "dark" : "light");
+
+    if (btnTema) {
+        const icone = btnTema.querySelector(".btn-tema-icone");
+        if (!icone) return;
+        icone.textContent = tema === "dark" ? "☀️" : "🌙";
+    }
+}
+
+function carregarTema() {
+    const salvo = localStorage.getItem("temaModa");
+    let tema = salvo;
+
+    if (!tema) {
+        const prefereDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+        tema = prefereDark ? "dark" : "light";
+    }
+
+    aplicarTema(tema);
+}
+
+function alternarTema() {
+    const atual = document.body.getAttribute("data-theme") || "light";
+    const novo = atual === "light" ? "dark" : "light";
+    aplicarTema(novo);
+    localStorage.setItem("temaModa", novo);
+}
+
+// =================== INTRO (sempre que carregar) ===================
+
+function mostrarIntro() {
+    const introOverlay = document.querySelector("#intro-overlay");
+    if (!introOverlay) return;
+
+    introOverlay.classList.add("intro-overlay--visivel");
+    introOverlay.classList.remove("intro-overlay--escondida");
+}
+
+function fecharIntro() {
+    const introOverlay = document.querySelector("#intro-overlay");
+    if (!introOverlay) return;
+
+    introOverlay.classList.remove("intro-overlay--visivel");
+    introOverlay.classList.add("intro-overlay--escondida");
+}
+
+// =================== UTIL ===================
+
 function normalizar(texto) {
     return texto
         .toLowerCase()
@@ -137,7 +193,6 @@ function normalizar(texto) {
         .replace(/[\u0300-\u036f]/g, "");
 }
 
-// Destaque visual do termo buscado (sem tirar acento)
 function destacarTermo(texto, termo) {
     if (!termo || !termo.trim()) return texto;
 
@@ -146,7 +201,6 @@ function destacarTermo(texto, termo) {
     return texto.replace(regex, "<mark>$1</mark>");
 }
 
-// Descobre categorias de um tema com base em nome/descrição/tags
 function obterCategoriasDoTema(dado) {
     const texto = normalizar(
         `${dado.nome} ${dado.descricao} ${(dado.tags || []).join(" ")}`
@@ -170,13 +224,14 @@ function obterCategoriasDoTema(dado) {
     return categoriasEncontradas;
 }
 
+// =================== DADOS ===================
+
 async function carregarDadosSeNecessario() {
     if (dados.length === 0) {
         try {
             const resposta = await fetch("data.json");
             const bruto = await resposta.json();
 
-            // Anota categorias em cada item
             dados = bruto.map(d => ({
                 ...d,
                 categorias: obterCategoriasDoTema(d)
@@ -187,7 +242,6 @@ async function carregarDadosSeNecessario() {
     }
 }
 
-// Lê favoritos do localStorage
 function carregarFavoritos() {
     try {
         const salvo = localStorage.getItem("favoritosModa");
@@ -200,13 +254,13 @@ function carregarFavoritos() {
     }
 }
 
-// Salva favoritos
 function salvarFavoritos() {
     const lista = Array.from(estado.favoritos);
     localStorage.setItem("favoritosModa", JSON.stringify(lista));
 }
 
-// Renderiza os chips de categoria
+// =================== CATEGORIAS / RESUMO ===================
+
 function renderizarCategorias() {
     categoriasContainer.innerHTML = "";
 
@@ -233,7 +287,6 @@ function renderizarCategorias() {
         const categoria = btn.dataset.categoria;
         estado.categoriaSelecionada = categoria;
 
-        // Atualiza visual
         document
             .querySelectorAll(".categoria-chip")
             .forEach(b => b.classList.remove("categoria-chip--active"));
@@ -243,7 +296,6 @@ function renderizarCategorias() {
     });
 }
 
-// Atualiza texto do botão de favoritos com contagem
 function atualizarBotaoFavoritos() {
     const qtd = estado.favoritos.size;
     const sufixo = `(${qtd})`;
@@ -257,7 +309,6 @@ function atualizarBotaoFavoritos() {
     }
 }
 
-// Calcula e renderiza o resumo (mini dashboard) baseado na lista filtrada
 function renderizarResumo(listaFiltrada) {
     if (!listaFiltrada || listaFiltrada.length === 0) {
         statsContainer.innerHTML = `
@@ -304,14 +355,15 @@ function renderizarResumo(listaFiltrada) {
     `;
 }
 
-// Aplica filtros (busca, categoria, favoritos, ordenação) e atualiza cards + texto de resultados + resumo
+// =================== FILTROS & CARDS ===================
+
 function aplicarFiltrosEAtualizarTela() {
     const termoBruto = estado.termoBusca.trim();
     const termoBuscaNormalizado = normalizar(termoBruto);
 
     let lista = dados.slice();
 
-    // Filtro por termo de busca
+    // Busca
     if (termoBuscaNormalizado) {
         lista = lista.filter(dado => {
             const nome = normalizar(dado.nome);
@@ -325,14 +377,14 @@ function aplicarFiltrosEAtualizarTela() {
         });
     }
 
-    // Filtro por categoria
+    // Categoria
     if (estado.categoriaSelecionada !== "todas") {
         lista = lista.filter(d =>
             (d.categorias || []).includes(estado.categoriaSelecionada)
         );
     }
 
-    // Filtro por favoritos
+    // Favoritos
     if (estado.mostrarFavoritos) {
         lista = lista.filter(d => estado.favoritos.has(d.nome));
     }
@@ -348,7 +400,7 @@ function aplicarFiltrosEAtualizarTela() {
         });
     }
 
-    // Atualiza texto de contexto
+    // Texto de contexto
     if (!termoBruto && estado.categoriaSelecionada === "todas" && !estado.mostrarFavoritos) {
         infoResultados.textContent = `Mostrando ${lista.length} temas sobre moda e indústria têxtil.`;
     } else {
@@ -362,7 +414,6 @@ function aplicarFiltrosEAtualizarTela() {
         if (estado.mostrarFavoritos) partes.push("apenas favoritos");
 
         const contexto = partes.join(" e ");
-
         infoResultados.textContent =
             lista.length === 0
                 ? `Nenhum resultado ${contexto || ""}.`
@@ -373,7 +424,6 @@ function aplicarFiltrosEAtualizarTela() {
     renderizarCards(lista);
 }
 
-// Renderiza os cards (com imagem, favoritos, highlight e animação)
 function renderizarCards(lista) {
     cardContainer.innerHTML = "";
 
@@ -402,13 +452,14 @@ function renderizarCards(lista) {
             ? `<img src="${caminhoImagem}" alt="${dado.nome}" class="card-img">`
             : `<div class="card-placeholder">${inicial}</div>`;
 
-        const tagsHtml = dado.tags && dado.tags.length
-            ? `<ul class="tag-list">
-                    ${dado.tags
-                        .map(tag => `<li class="tag-chip">${destacarTermo(tag, termoHighlight)}</li>`)
-                        .join("")}
-               </ul>`
-            : "";
+        const tagsHtml =
+            dado.tags && dado.tags.length
+                ? `<ul class="tag-list">
+                        ${dado.tags
+                            .map(tag => `<li class="tag-chip">${destacarTermo(tag, termoHighlight)}</li>`)
+                            .join("")}
+                   </ul>`
+                : "";
 
         const tituloDestacado = destacarTermo(dado.nome, termoHighlight);
         const descricaoDestacada = destacarTermo(dado.descricao, termoHighlight);
@@ -441,7 +492,6 @@ function renderizarCards(lista) {
         cardContainer.appendChild(article);
     });
 
-    // Liga eventos de favoritos
     document.querySelectorAll(".favorite-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const nome = btn.dataset.nome;
@@ -459,47 +509,37 @@ function renderizarCards(lista) {
     });
 }
 
-// Inicia busca manual (botão / Enter / sugestão)
+// =================== AÇÕES ===================
+
 async function iniciarBusca() {
     await carregarDadosSeNecessario();
     estado.termoBusca = campoBusca.value;
     aplicarFiltrosEAtualizarTela();
-
-    // Scroll suave para a lista de resultados
     document.querySelector("main").scrollIntoView({ behavior: "smooth" });
 }
 
-// Limpar filtros (voltar para o estado inicial)
 function limparFiltros() {
-    // Reset do estado
     estado.termoBusca = "";
     estado.categoriaSelecionada = "todas";
     estado.mostrarFavoritos = false;
     estado.ordenacao = "az";
 
-    // Reset dos inputs visuais
     campoBusca.value = "";
     selectOrdenacao.value = "az";
 
-    // Reset visual dos chips de categoria
     document
         .querySelectorAll(".categoria-chip")
         .forEach(b => b.classList.remove("categoria-chip--active"));
 
     const chipTodas = document.querySelector('.categoria-chip[data-categoria="todas"]');
-    if (chipTodas) {
-        chipTodas.classList.add("categoria-chip--active");
-    }
+    if (chipTodas) chipTodas.classList.add("categoria-chip--active");
 
-    // Atualiza botão de favoritos
     atualizarBotaoFavoritos();
-
-    // Reaplica filtros e volta pro topo da lista
     aplicarFiltrosEAtualizarTela();
     document.querySelector("main").scrollIntoView({ behavior: "smooth" });
 }
 
-// Controle do modal "Sobre o projeto"
+// Modal
 function abrirModalSobre() {
     modalSobre.classList.add("modal--aberto");
     modalSobre.setAttribute("aria-hidden", "false");
@@ -510,35 +550,42 @@ function fecharModalSobre() {
     modalSobre.setAttribute("aria-hidden", "true");
 }
 
-// Setup inicial
+// =================== BOOTSTRAP ===================
+
 document.addEventListener("DOMContentLoaded", async () => {
+    // Tema
+    carregarTema();
+
+    // Intro (sempre que carregar)
+    mostrarIntro();
+
+    // Favoritos
     carregarFavoritos();
     atualizarBotaoFavoritos();
 
+    // Dados + UI
     await carregarDadosSeNecessario();
     renderizarCategorias();
     aplicarFiltrosEAtualizarTela();
 
-    // Enter no campo de busca
+    // ENTER na busca
     campoBusca.addEventListener("keydown", event => {
-        if (event.key === "Enter") {
-            iniciarBusca();
-        }
+        if (event.key === "Enter") iniciarBusca();
     });
 
-    // Botão de favoritos
+    // Botão favoritos
     btnFavoritos.addEventListener("click", () => {
         estado.mostrarFavoritos = !estado.mostrarFavoritos;
         atualizarBotaoFavoritos();
         aplicarFiltrosEAtualizarTela();
     });
 
-    // Botão limpar filtros
+    // Limpar filtros
     btnLimpar.addEventListener("click", () => {
         limparFiltros();
     });
 
-    // Sugestões de pesquisa
+    // Sugestões
     sugestoesBotoes.forEach(btn => {
         btn.addEventListener("click", () => {
             const termo = btn.dataset.termo || "";
@@ -555,12 +602,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         aplicarFiltrosEAtualizarTela();
     });
 
-    // Botão imprimir
+    // Imprimir
     btnImprimir.addEventListener("click", () => {
         window.print();
     });
 
-    // Botão voltar ao topo
+    // Voltar ao topo
     btnTopo.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -573,7 +620,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // Modal sobre
+    // Modal
     btnSobre.addEventListener("click", abrirModalSobre);
     btnModalFechar.addEventListener("click", fecharModalSobre);
 
@@ -583,9 +630,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
+    // ESC fecha modal e intro
     document.addEventListener("keydown", event => {
         if (event.key === "Escape") {
             fecharModalSobre();
+            fecharIntro();
         }
     });
+
+    // Tema toggle
+    if (btnTema) {
+        btnTema.addEventListener("click", alternarTema);
+    }
+
+    // Intro: clique fecha + timeout
+    const introEl = document.querySelector("#intro-overlay");
+    if (introEl) {
+        introEl.addEventListener("click", fecharIntro);
+
+        setTimeout(() => {
+            fecharIntro();
+        }, 2600);
+    }
 });
